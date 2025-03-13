@@ -1,4 +1,4 @@
 package mvc;
 
-public class AppFactory {
+public interface  AppFactory {
 }
