@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.WindowEvent;
 
 public class SafeFrame extends JFrame {
-
+    @Override
     protected void processWindowEvent(WindowEvent ev) {
         super.processWindowEvent(ev);
         if(ev.getID() == WindowEvent.WINDOW_CLOSING) {

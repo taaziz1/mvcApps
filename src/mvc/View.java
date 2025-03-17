@@ -1,6 +1,8 @@
 package mvc;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 public class View extends JPanel implements Subscriber {
     protected Model model;
