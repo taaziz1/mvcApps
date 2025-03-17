@@ -5,11 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 // AppPanel is the MVC controller
-public class AppPanel extends JPanel implements Subscriber, ActionListener  {
+public class AppPanel extends JPanel implements Subscriber, ActionListener {
 
-    protected Model model;
+    public Model model;
     protected AppFactory factory;
-    protected View view;
+    public View view;
     protected JPanel controlPanel;
     private JFrame frame;
     public static int FRAME_WIDTH = 500;
@@ -18,6 +18,14 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
     public AppPanel(AppFactory factory) {
 
         // initialize fields here
+        model = new Model();
+        view = new View(model);
+        this.factory = factory;
+        controlPanel = new ControlPanel();
+
+        this.setLayout((new GridLayout(1, 2)));
+        this.add(controlPanel);
+        this.add(view);
 
         frame = new SafeFrame();
         Container cp = frame.getContentPane();
@@ -27,11 +35,18 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
     }
 
-    public void display() { frame.setVisible(true); }
+    public void display() {
+        frame.setVisible(true);
+    }
 
-    public void update() {  /* override in extensions if needed */ }
+    public void update() {  /* override in extensions if needed */
+    // TODO: make update procedure
 
-    public Model getModel() { return model; }
+    }
+
+    public Model getModel() {
+        return model;
+    }
 
     // called by file/open and file/new
     public void setModel(Model newModel) {
@@ -47,7 +62,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         JMenuBar result = new JMenuBar();
         // add file, edit, and help menus
         JMenu fileMenu =
-                Utilities.makeMenu("File", new String[] {"New",  "Save", "SaveAs", "Open", "Quit"}, this);
+                Utilities.makeMenu("File", new String[]{"New", "Save", "SaveAs", "Open", "Quit"}, this);
         result.add(fileMenu);
 
         JMenu editMenu =
@@ -55,7 +70,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
         result.add(editMenu);
 
         JMenu helpMenu =
-                Utilities.makeMenu("Help", new String[] {"About", "Help"}, this);
+                Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
         result.add(helpMenu);
 
         return result;
@@ -94,5 +109,11 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener  {
 
     protected void handleException(Exception e) {
         Utilities.error(e);
+    }
+
+    private class ControlPanel extends JPanel {
+        public ControlPanel() {
+
+        }
     }
 }

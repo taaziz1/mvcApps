@@ -2,6 +2,9 @@ package stoplightSim2;
 
 
 import mvc.*;
+
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class StoplightView extends View {
