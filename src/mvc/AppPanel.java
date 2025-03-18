@@ -7,20 +7,19 @@ import javax.swing.*;
 // AppPanel is the MVC controller
 public class AppPanel extends JPanel implements Subscriber, ActionListener {
 
-    public Model model;
+    protected Model model;
     protected AppFactory factory;
-    public View view;
+    protected View view;
     protected JPanel controlPanel;
     private JFrame frame;
     public static int FRAME_WIDTH = 500;
     public static int FRAME_HEIGHT = 300;
 
     public AppPanel(AppFactory factory) {
-
-        // initialize fields here
-        model = new Model();
-        view = new View(model);
         this.factory = factory;
+        model = this.factory.makeModel();
+        view = this.factory.makeView(model);
+
         controlPanel = new ControlPanel();
 
         this.setLayout((new GridLayout(1, 2)));
@@ -39,10 +38,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         frame.setVisible(true);
     }
 
-    public void update() {  /* override in extensions if needed */
-    // TODO: make update procedure
-
-    }
+    public void update() { /* override in extensions if needed */ }
 
     public Model getModel() {
         return model;
@@ -62,7 +58,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         JMenuBar result = new JMenuBar();
         // add file, edit, and help menus
         JMenu fileMenu =
-                Utilities.makeMenu("File", new String[]{"New", "Save", "SaveAs", "Open", "Quit"}, this);
+                Utilities.makeMenu("File", new String[]{"New", "Save", "Save As", "Open", "Quit"}, this);
         result.add(fileMenu);
 
         JMenu editMenu =
@@ -82,7 +78,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
 
             if (cmmd.equals("Save")) {
                 Utilities.save(model, false);
-            } else if (cmmd.equals("SaveAs")) {
+            } else if (cmmd.equals("Save As")) {
                 Utilities.save(model, true);
             } else if (cmmd.equals("Open")) {
                 Model newModel = Utilities.open(model);
@@ -100,7 +96,8 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
             } else if (cmmd.equals("Help")) {
                 Utilities.inform(factory.getHelp());
             } else { // must be from Edit menu
-                //???
+                Command command = factory.makeEditCommand(model, cmmd, ae.getSource());
+                command.execute();
             }
         } catch (Exception e) {
             handleException(e);
@@ -113,7 +110,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
 
     private class ControlPanel extends JPanel {
         public ControlPanel() {
-
+            super();
         }
     }
 }

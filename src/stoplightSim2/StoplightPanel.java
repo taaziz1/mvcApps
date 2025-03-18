@@ -12,7 +12,10 @@ public class StoplightPanel extends AppPanel {
         super(factory);
         change = new JButton("Change");
         change.addActionListener(this);
-        controlPanel.add(change);
+        JPanel p = new JPanel();
+        p.add(change);
+        controlPanel.add(p);
+        controlPanel.setBackground(Color.PINK);
     }
 
     public static void main(String[] args) {

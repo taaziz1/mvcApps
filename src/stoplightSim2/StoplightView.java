@@ -11,6 +11,9 @@ public class StoplightView extends View {
 
     public StoplightView(Stoplight light) {
         super(light);
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        setBorder(blackline);
+        setBackground(Color.LIGHT_GRAY);
     }
 
     public void paintComponent(Graphics gc) {
