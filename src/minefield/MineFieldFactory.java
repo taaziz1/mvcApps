@@ -4,7 +4,6 @@ import mvc.*;
 
 public class MineFieldFactory implements AppFactory {
 
-
     public Model makeModel() { return new MineField(); }
 
     public View makeView(Model m) {
@@ -17,9 +16,23 @@ public class MineFieldFactory implements AppFactory {
         switch(type) {
             case "NW":
                 return new MoveCommand(model, Heading.NW);
-            //Need to fill in rest of cases
+            case "N": 
+            	return new MoveCommand(model, Heading.N);
+            case "NE":
+            	return new MoveCommand(model, Heading.NE);
+            case "W": 
+            	return new MoveCommand(model, Heading.W);
+            case "E": 
+            	return new MoveCommand(model, Heading.E);
+            case "SW": 
+            	return new MoveCommand(model, Heading.SW);
+            case "S": 
+            	return new MoveCommand(model, Heading.S);
+            case "SE": 
+            	return new MoveCommand(model, Heading.SE);
+            default: 
+            	return null;
         }
-        return null;
     }
 
     public String getTitle() { return "Mine Field"; }
