@@ -11,12 +11,14 @@ public class MineFieldFactory implements AppFactory {
         return new MineFieldView((MineField)m);
     }
 
-    public String[] getEditCommands() { return new String[] {"Move"}; }
+    public String[] getEditCommands() { return new String[] {"NW", "N", "NE", "W", "E", "SW", "S", "SE"}; }
 
-    // source added 3/15 to support text fields
     public Command makeEditCommand(Model model, String type, Object source) {
-        if (type == "Move")
-            return new MoveCommand(model);
+        switch(type) {
+            case "NW":
+                return new MoveCommand(model, Heading.NW);
+            //Need to fill in rest of cases
+        }
         return null;
     }
 
@@ -28,7 +30,7 @@ public class MineFieldFactory implements AppFactory {
     }
 
     public String about() {
-        return "Mine Field version 1.0. Copyright 2025 by THC Designs";
+        return "Mine Field. Talha Aziz, Connor Corona, Howie Pham. 3/20/2025";
     }
 
 }
