@@ -40,8 +40,8 @@ public class MineField extends Model {
                 //Increment adjacentMines by 1 for all valid neighbors
                 for(int neighborX = row - 1; neighborX <= row + 1; neighborX++) {
                     for(int neighborY = col - 1; neighborY <= col + 1; neighborY++) {
-                        if(inBounds(neighborX, neighborY) && (neighborX != row && neighborY != col)) {
-                            field[row][col].incrementAdjacentMines();
+                        if(inBounds(neighborX, neighborY) && (neighborX != row || neighborY != col)) {
+                            field[neighborX][neighborY].incrementAdjacentMines();
                         }
                     }
                 }
@@ -65,14 +65,17 @@ public class MineField extends Model {
         posX = newX;
         posY = newY;
 
-        field[posX][posY].setVisited(true);
+        field[posY][posX].setVisited(true);
 
-        if(field[posX][posY].hasMine()) {
+        changed();
+
+        if(field[posY][posX].hasMine()) {
             gameOver = true;
             throw new Exception("lose");
         }
 
         if(posX + posY == (fieldSize - 1) + (fieldSize - 1)) {
+            gameOver = true;
             throw new Exception("win");
         }
     }
@@ -90,7 +93,23 @@ public class MineField extends Model {
     }
 
     public MineFieldPatch getPatch(int x, int y) {
-        return field[x][y];
+        return field[y][x];
+    }
+
+    public Boolean getGameOver() {
+        return gameOver;
+    }
+
+    public Boolean atGoal() {
+        return posX == fieldSize - 1 && posY == (fieldSize - 1);
+    }
+
+    public Boolean onMine() {
+        return field[posY][posX].hasMine();
+    }
+
+    public int getAdjacentMines() {
+        return field[posY][posX].getAdjacentMines();
     }
 
 }

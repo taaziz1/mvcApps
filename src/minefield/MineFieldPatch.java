@@ -1,6 +1,8 @@
 package minefield;
 
-public class MineFieldPatch {
+import java.io.Serializable;
+
+public class MineFieldPatch implements Serializable {
     private Boolean mine;
     private Boolean visited;
     private int adjacentMines;

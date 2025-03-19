@@ -9,7 +9,7 @@ public class MoveCommand extends Command {
         this.heading = heading;
     }
 
-    public void execute() {
+    public void execute() throws Exception{
         MineField minefield = (MineField)model;
         try {
         	if (heading == Heading.NW) {
@@ -42,7 +42,7 @@ public class MoveCommand extends Command {
         	}
         }
         catch (Exception e) {
-        	Utilities.error(e);
+        	throw e;
         }
     }
 }

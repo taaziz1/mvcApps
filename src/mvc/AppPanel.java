@@ -20,7 +20,7 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         model = this.factory.makeModel();
         view = this.factory.makeView(model);
 
-        controlPanel = new ControlPanel();
+        controlPanel = new JPanel();
 
         this.setLayout((new GridLayout(1, 2)));
         this.add(controlPanel);
@@ -108,9 +108,4 @@ public class AppPanel extends JPanel implements Subscriber, ActionListener {
         Utilities.error(e);
     }
 
-    private class ControlPanel extends JPanel {
-        public ControlPanel() {
-            super();
-        }
-    }
 }
