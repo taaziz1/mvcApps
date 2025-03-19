@@ -38,7 +38,7 @@ public class MoveCommand extends Command {
         	}
         	//in case some other movement is tried
         	else {
-        		Utilities.error("You've chosen an impossible move!");
+        		throw new Exception("Invalid Movement Option!");
         	}
         }
         catch (Exception e) {
