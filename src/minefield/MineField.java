@@ -3,13 +3,14 @@ package minefield;
 import mvc.Model;
 import mvc.Utilities;
 
+import java.util.Stack;
+
 public class MineField extends Model {
     public static int percentMined = 5;
     public static int fieldSize = 20;
     private MineFieldPatch[][] field;
     private int posX, posY;
     private Boolean gameOver = false;
-
 
     public MineField() {
         super();
