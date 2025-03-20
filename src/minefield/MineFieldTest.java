@@ -1,6 +1,5 @@
 package minefield;
 import mvc.AppFactory;
-import mvc.AppPanel;
 
 import java.util.Scanner;
 
