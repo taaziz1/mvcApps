@@ -15,7 +15,7 @@ public class MineFieldView extends View {
 
 
     //Java Swing was creating random elements in the background of the frame
-    //Only solution I found was removing repaint() and using updateView() to repaint the component
+    //Only solution I found was to avoid repaint() and use updateView() to repaint the component
     @Override
     public void update() {
         updateView();
@@ -37,6 +37,7 @@ public class MineFieldView extends View {
         labels = new JLabel[size][size];
         MineField field = (MineField) model;
 
+        //Creates and inserts the initial labels based on the MineField model
         for(int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
                 JLabel l = new JLabel();
@@ -61,8 +62,7 @@ public class MineFieldView extends View {
             }
         }
 
-        labels[field.getX()][field.getY()].setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        System.out.println("0: painted " + field.getX() + " " + field.getY() + " blue");
+        labels[field.getX()][field.getY()].setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
 
         labels[size - 1][size - 1].setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
@@ -75,9 +75,9 @@ public class MineFieldView extends View {
         MineField field = (MineField)model;
         JLabel currLabel = labels[field.getX()][field.getY()];
 
+        //Changes previous patch to a white border
         if(prevLabel != null) {
             prevLabel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-            System.out.println("1: painted " + field.getX() + " " + field.getY() + " white");
         }
 
         if(field.atGoal()) {
@@ -90,13 +90,10 @@ public class MineFieldView extends View {
         }
         else {
             currLabel.setText("" + field.getAdjacentMines());
-            System.out.println("1: painted " + field.getX() + " " + field.getY() + " blue");
-            currLabel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+            currLabel.setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
         }
 
-        if(prevLabel != currLabel) {
-            prevLabel = currLabel;
-        }
+        prevLabel = currLabel;
 
         this.revalidate();
     }

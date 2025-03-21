@@ -30,6 +30,7 @@ public class MineField extends Model {
 
         int numMines = (int)((percentMined/100.0) * (fieldSize * fieldSize));
 
+        //This while loop sets the locations of the mines
         while(numMines > 0) {
             int row = Utilities.rng.nextInt(fieldSize);
             int col = Utilities.rng.nextInt(fieldSize);
@@ -53,14 +54,29 @@ public class MineField extends Model {
                 numMines--;
             }
         }
+
     }
 
-    public void move(int x, int y) throws Exception{
+    public void move(Heading h) throws Exception{
         if(gameOver) {
             throw new Exception("game already over");
         }
-        int newX = posX + x;
-        int newY = posY + y;
+
+        int newX = posX;
+        int newY = posY;
+
+        //Uses type of Heading h to determine how far the player should move
+        switch(h) {
+            case NW -> { newX--; newY--; }
+            case N -> { newY--; }
+            case NE -> { newX++; newY--; }
+            case W -> { newX--; }
+            case E -> { newX++; }
+            case SW -> { newX--; newY++; }
+            case S -> { newY++; }
+            case SE -> { newX++; newY++; }
+            default -> { throw new Exception("invalid movement"); }
+        }
 
         if(!inBounds(newX, newY)) {
             throw new Exception("out of bounds");

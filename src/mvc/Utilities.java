@@ -51,11 +51,16 @@ public class Utilities {
     }
 
     // asks user to save changes
-    public static void saveChanges(Model model) {
+    // returns a boolean indicating whether the save was successful
+    public static Boolean saveChanges(Model model) {
         if (model.getUnsavedChanges() &&
                 !Utilities.confirm("Current model has unsaved changes, continue?")) {
-            Utilities.save(model, false);
+            if(model.getFileName() == null) {
+                Utilities.save(model, false);
+            }
+            return !model.getUnsavedChanges();
         }
+        return true;
     }
 
     // asks user for a file name
@@ -94,21 +99,22 @@ public class Utilities {
             os.close();
         } catch (Exception err) {
             model.setUnsavedChanges(true);
-            Utilities.error(err);
+            Utilities.error(new Exception("Model was not saved."));
         }
     }
 
     // open model
     public static Model open(Model model) {
-        saveChanges(model);
-        String fName = getFileName(model.getFileName(), true);
         Model newModel = null;
-        try {
-            ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
-            newModel = (Model)is.readObject();
-            is.close();
-        } catch (Exception err) {
-            Utilities.error(err);
+        if(saveChanges(model)) {
+            String fName = getFileName(model.getFileName(), true);
+            try {
+                ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
+                newModel = (Model) is.readObject();
+                is.close();
+            } catch (Exception err) {
+                Utilities.error(new Exception("No file was chosen."));
+            }
         }
         return newModel;
     }
