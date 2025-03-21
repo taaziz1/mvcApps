@@ -113,7 +113,7 @@ public class Utilities {
                 newModel = (Model) is.readObject();
                 is.close();
             } catch (Exception err) {
-                Utilities.error(new Exception("No file was chosen."));
+                Utilities.error(new Exception("No file was opened."));
             }
         }
         return newModel;

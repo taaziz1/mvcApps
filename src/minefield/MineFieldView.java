@@ -15,9 +15,10 @@ public class MineFieldView extends View {
 
 
     //Java Swing was creating random elements in the background of the frame
-    //Only solution I found was to avoid repaint() and use updateView() to repaint the component
+    //Only solution I found was to avoid using paintComponent() and use updateView() to repaint the component
     @Override
     public void update() {
+        super.update();
         updateView();
     }
 

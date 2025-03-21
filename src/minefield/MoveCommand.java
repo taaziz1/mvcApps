@@ -3,7 +3,7 @@ package minefield;
 import mvc.*;
 
 public class MoveCommand extends Command {
-    Heading heading;
+    private Heading heading;
     public MoveCommand(Model model, Heading heading) {
         super(model);
         this.heading = heading;
