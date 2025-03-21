@@ -10,7 +10,7 @@ public class Utilities {
     // asks user a yes/no question
     public static boolean confirm(String query) {
         int result = JOptionPane.showConfirmDialog(null,
-                query, "choose one", JOptionPane.YES_NO_OPTION);
+                query, "Choose One", JOptionPane.YES_NO_OPTION);
         return result == 0;
     }
 
@@ -53,7 +53,7 @@ public class Utilities {
     // asks user to save changes
     public static void saveChanges(Model model) {
         if (model.getUnsavedChanges() &&
-                !Utilities.confirm("current model has unsaved changes, continue?")) {
+                !Utilities.confirm("Current model has unsaved changes, continue?")) {
             Utilities.save(model, false);
         }
     }

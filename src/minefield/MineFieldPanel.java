@@ -16,8 +16,8 @@ public class MineFieldPanel extends AppPanel {
             JPanel panel = new JPanel();
             JButton b = new JButton(s);
             b.addActionListener(this);
-            controlPanel.add(panel);
             panel.add(b);
+            controlPanel.add(panel);
         }
 
     }
@@ -26,22 +26,16 @@ public class MineFieldPanel extends AppPanel {
     protected void handleException(Exception e) {
         String message = e.getMessage();
 
-        if (message.equals("win")) {
-            JOptionPane.showMessageDialog(null, "You win! Open a new\nfile to play again!","Congratulations!", JOptionPane.INFORMATION_MESSAGE);
-        } else if (message.equals("lose")) {
-            JOptionPane.showMessageDialog(null, "You stepped on a mine!\nOpen a " +
-                    "new file to play again.","Game Over!", JOptionPane.INFORMATION_MESSAGE);
-        } else if (message.equals("out of bounds")) {
-            JOptionPane.showMessageDialog(null,
-                    "You attempted to move out of bounds.\nPlease stay inside the field!"
-                    ,"Oops!", JOptionPane.ERROR_MESSAGE);
-        } else if (message.equals("game already over")) {
-            JOptionPane.showMessageDialog(null, "The game is finished. Please open\na " +
-                    "new file to play again","OOPS!", JOptionPane.ERROR_MESSAGE);
-        } else if (message.equals("Invalid Movement Option!")) {
-            JOptionPane.showMessageDialog(null, "That move is invalid!\nPlease try again.","OOPS!", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Utilities.error(e);
+        switch (message) {
+            case "win" ->
+                    Utilities.inform("You win! Open a new\nfile to play again!");
+            case "lose" ->
+                    Utilities.inform("You stepped on a mine!\nOpen a new file to play again.");
+            case "out of bounds" ->
+                    Utilities.inform( "You attempted to move out of bounds.\nPlease stay inside the field!");
+            case "game already over" ->
+                    Utilities.inform("The game is finished. Please open\na new file to play again");
+            default -> Utilities.error(e);
         }
     }
 

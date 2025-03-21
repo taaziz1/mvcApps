@@ -11,38 +11,33 @@ public class MoveCommand extends Command {
 
     public void execute() throws Exception{
         MineField minefield = (MineField)model;
-        try {
-        	if (heading == Heading.NW) {
-        		minefield.move(-1, -1);
-        	}
-        	else if (heading == Heading.N) {
-        		minefield.move(0, -1);
-        	}
-        	else if (heading == Heading.NE) {
-        		minefield.move(1, -1);
-        	}
-        	else if (heading == Heading.W) {
-        		minefield.move(-1, 0);
-        	}
-        	else if (heading == Heading.E) {
-        		minefield.move(1, 0);
-        	}
-        	else if (heading == Heading.SW) {
-        		minefield.move(-1, 1);
-        	}
-        	else if (heading == Heading.S) {
-        		minefield.move(0, 1);
-        	}
-        	else if (heading == Heading.SE) {
-        		minefield.move(1, 1);
-        	}
-        	//in case some other movement is tried
-        	else {
-        		throw new Exception("Invalid Movement Option!");
-        	}
+        if (heading == Heading.NW) {
+            minefield.move(-1, -1);
         }
-        catch (Exception e) {
-        	throw e;
+        else if (heading == Heading.N) {
+            minefield.move(0, -1);
+        }
+        else if (heading == Heading.NE) {
+            minefield.move(1, -1);
+        }
+        else if (heading == Heading.W) {
+            minefield.move(-1, 0);
+        }
+        else if (heading == Heading.E) {
+            minefield.move(1, 0);
+        }
+        else if (heading == Heading.SW) {
+            minefield.move(-1, 1);
+        }
+        else if (heading == Heading.S) {
+            minefield.move(0, 1);
+        }
+        else if (heading == Heading.SE) {
+            minefield.move(1, 1);
+        }
+        //in case some other movement is tried
+        else {
+            throw new Exception("invalid movement");
         }
     }
 }

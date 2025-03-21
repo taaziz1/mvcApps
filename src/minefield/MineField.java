@@ -3,14 +3,13 @@ package minefield;
 import mvc.Model;
 import mvc.Utilities;
 
-import java.util.Stack;
-
 public class MineField extends Model {
     public static int percentMined = 5;
     public static int fieldSize = 20;
+
     private MineFieldPatch[][] field;
-    private int posX, posY;
     private Boolean gameOver = false;
+    private int posX, posY;
 
     public MineField() {
         super();
@@ -27,6 +26,8 @@ public class MineField extends Model {
             }
         }
 
+        field[0][0].setVisited(true);
+
         int numMines = (int)((percentMined/100.0) * (fieldSize * fieldSize));
 
         while(numMines > 0) {
@@ -36,7 +37,9 @@ public class MineField extends Model {
             //Make sure chosen MineFieldPatch isn't starting point, ending point, or already mined
             if((row + col != 0)
                     && (row + col != (fieldSize - 1) + (fieldSize - 1))
-                    && field[row][col].arm()) {
+                    && !field[row][col].hasMine()) {
+
+                field[row][col].arm();
 
                 //Increment adjacentMines by 1 for all valid neighbors
                 for(int neighborX = row - 1; neighborX <= row + 1; neighborX++) {
@@ -95,10 +98,6 @@ public class MineField extends Model {
 
     public MineFieldPatch getPatch(int x, int y) {
         return field[y][x];
-    }
-
-    public Boolean getGameOver() {
-        return gameOver;
     }
 
     public Boolean atGoal() {

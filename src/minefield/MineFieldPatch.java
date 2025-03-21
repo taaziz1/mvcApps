@@ -13,17 +13,12 @@ public class MineFieldPatch implements Serializable {
         adjacentMines = 0;
     }
 
-    public Boolean hasMine() {
-        return mine;
+    public void arm() {
+        mine = true;
     }
 
-    //Returns false if patch was already mined, true otherwise
-    public Boolean arm() {
-        if(mine) {
-            return false;
-        }
-        mine = true;
-        return true;
+    public Boolean hasMine() {
+        return mine;
     }
 
     public int getAdjacentMines() {
